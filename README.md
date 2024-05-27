@@ -23,7 +23,7 @@ Building this project provided valuable learning experiences in:
 * RESTful API Design: Designing and implementing RESTful APIs for seamless data exchange.
 * Environmental Variables: Practice setting environment variables for configuration.
 * NoSQL Database: Utilizing MongoDB as a NoSQL database for storing financial data.
-* 
+
 ## 🛠️ How to Run
 To run this web app locally, follow these steps:
 
