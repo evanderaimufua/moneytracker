@@ -1,5 +1,5 @@
 # Money Tracker Web App
-Money Tracker is a web application designed to help you manage and track your finances effortlessly. With a user-friendly interface and robust functionality, Money Tracker empowers you to take control of your financial journey.
+Simple money tracker web application designed to help you manage and track your finances effortlessly with its user-friendly interface.
 
 ## 🚀 Technologies
 This application is built using the MERN stack:
