@@ -18,23 +18,31 @@ function App() {
     return await response.json();
   }
   //handles new transactions and sends to the backend
-  function handleNewTransaction(event) {
+  async function handleNewTransaction(event) {
     event.preventDefault();
     const url = process.env.REACT_APP_API_URL + "/transaction";
-    fetch(url, {
+    const response = await fetch(url, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ number, name, description, dateTime }),
-    }).then((response) => {
-      response.json().then((json) => {
-        setNumber("");
-        setName("");
-        setDateTime("");
-        setDescription("");
-        console.log("result", json);
-      });
     });
+
+    if (response.ok) {
+      // Clear form fields
+      setNumber("");
+      setName("");
+      setDateTime("");
+      setDescription("");
+
+      // Re-fetch the transactions
+      const updatedTransactions = await getTransactions();
+      setTransactions(updatedTransactions);
+    } else {
+      // Handle error if needed
+      console.error("Failed to add transaction");
+    }
   }
+
   // Format the date and time to show day, month, year, hours, and minutes
   function formatDateTime(dateTime) {
     const date = new Date(dateTime);
@@ -51,13 +59,17 @@ function App() {
   }
 
   //calculating the overall balance
-  let balance = 0;
-  for (const transaction of transactions) {
-    balance = balance + transaction.number;
+  function calculateBalance(transactions) {
+    let balance = 0;
+    for (const transaction of transactions) {
+      balance += transaction.number;
+    }
+    balance = balance.toFixed(2);
+    const fraction = balance.split(".")[1];
+    balance = balance.split(".")[0];
+    return { balance, fraction };
   }
-  balance = balance.toFixed(2);
-  const fraction = balance.split(".")[1];
-  balance = balance.split(".")[0];
+  const { balance, fraction } = calculateBalance(transactions);
 
   return (
     <main>
