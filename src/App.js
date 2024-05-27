@@ -35,6 +35,22 @@ function App() {
       });
     });
   }
+  // Format the date and time to show day, month, year, hours, and minutes
+  function formatDateTime(dateTime) {
+    const date = new Date(dateTime);
+    const formattedDate = date.toLocaleDateString([], {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+    const formattedTime = date.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return `${formattedDate} ${formattedTime}`;
+  }
+
+  //calculating the overall balance
   let balance = 0;
   for (const transaction of transactions) {
     balance = balance + transaction.number;
@@ -98,7 +114,9 @@ function App() {
                 >
                   {transaction.number}
                 </div>
-                <div className="datetime">{transaction.dateTime}</div>
+                <div className="datetime">
+                  {formatDateTime(transaction.dateTime)}
+                </div>
               </div>
             </div>
           ))}
